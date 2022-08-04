@@ -84,9 +84,6 @@ myButtonProb.place(x=60, y=260)
 
 root.mainloop()
 
-
-
-
 #define em qual arquivo os dados inseridos vão
 mytree.write('simulation.xml')
 
