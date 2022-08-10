@@ -1,6 +1,6 @@
 <group>
     <simulation id="1">
-        <gridsize> 0 </gridsize>
+        <gridsize newgridsizes="yes"> 0 </gridsize>
         <cars> 0 </cars>
         <rsus> 0 </rsus>
         <speed> 0 </speed>

@@ -1,4 +1,5 @@
-import tkinter
+import tkinter as TK
+from tkinter import simpledialog
 from cgitb import handler
 import xml.sax
 import xml.etree.ElementTree as ET
@@ -41,45 +42,62 @@ class SimulationHandler(xml.sax.ContentHandler):
        print(f"% fail: {self.probfail}")
     self.current = ""
 
+def get_value():
+   global user_value
+   result = simpledialog.askfloat("type a value")
+   user_value = result
 
 #tamanho da janela
-root = tkinter.Tk()
+root = TK.Tk()
 root.geometry('1920x1080')
 
-e = tkinter.Entry(root, width=10)
-e.pack()
-e.get()
+user_value = ''
+
+label = TK.Label(root)
+label.pack()
+
+submitButton = TK.Button(root, text="Start", command=get_value)
+submitButton.pack()
+
+def myEntry():
+   e = TK.Entry(root, width=10)
+   e.pack()
+   e.get()
+
+horizontal = TK.Scale(root, from_=0, to=100, orient=TK.HORIZONTAL)
+horizontal.pack()
+horizontal.get()
 
 def myClick():
-    myLabel = tkinter.Label(root, text=e.get())
+    myLabel = TK.Label(root, text=myEntry())
     myLabel.pack()
 
 def mySlide():
-   horizontal = tkinter.Scale(root, from_=0, to=120, orient=tkinter.HORIZONTAL)
-   horizontal.pack()
-   
-   horizontal2 = tkinter.Scale(root, from_=0, to=100, orient=tkinter.HORIZONTAL)
-   horizontal2.pack()
+   myScale = TK.Scale(root, text=horizontal.get())
+   myScale.pack()
 
-myButton = tkinter.Button(root, text="Start", padx=20, pady=20, command=myClick, bg="green")
+myButton = TK.Button(root, text="Start", padx=20, pady=20, command=myClick, bg="green")
 myButton.pack()
 
-myButtonGrid = tkinter.Button(root, text="Type Gridsize", padx=10, pady=10, command=myClick)
-myButtonGrid.place(x=60, y=10)
+for gridsizes in myroot.iter('gridsize'):
+   myButtonGrid = TK.Button(root, text="Type Gridsize", padx=10, pady=10,  command=lambda: [myEntry(), myClick()])
+   myButtonGrid.place(x=60, y=10)
+   #gridsizes.text = myButtonGrid
+   gridsizes.set('newgridsizes', 'yes')
 
-myButtonCars = tkinter.Button(root, text="Type number of Cars", padx=10, pady=10, command=myClick)
+myButtonCars = TK.Button(root, text="Type number of Cars", padx=10, pady=10, command=myClick)
 myButtonCars.place(x=60, y=60)
 
-myButtonRsus = tkinter.Button(root, text="Type number of RSUs", padx=10, pady=10, command=myClick)
+myButtonRsus = TK.Button(root, text="Type number of RSUs", padx=10, pady=10, command=myClick)
 myButtonRsus.place(x=60, y=110)
 
-myButtonSpeed = tkinter.Button(root, text="Type Speed", padx=10, pady=10, command=mySlide)
+myButtonSpeed = TK.Button(root, text="Type Speed", padx=10, pady=10, command=mySlide)
 myButtonSpeed.place(x=60, y=160)
 
-myButtonSimtime = tkinter.Button(root, text="Type the SimulationTime", padx=10, pady=10, command=myClick)
+myButtonSimtime = TK.Button(root, text="Type the SimulationTime", padx=10, pady=10, command=myClick)
 myButtonSimtime.place(x=60, y=210)
 
-myButtonProb = tkinter.Button(root, text="Type the %Fail", padx=10, pady=10, command=myClick)
+myButtonProb = TK.Button(root, text="Type the %Fail", padx=10, pady=10, command=myClick)
 myButtonProb.place(x=60, y=260)
 
 root.mainloop()
