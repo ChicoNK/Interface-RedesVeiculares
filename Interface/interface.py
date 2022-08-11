@@ -7,6 +7,7 @@ import xml.etree.ElementTree as ET
 mytree = ET.parse('simulation.xml')
 myroot = mytree.getroot()
 
+
 class SimulationHandler(xml.sax.ContentHandler):
    def startElement(self, gridsize, attrs):
       self.current = gridsize
@@ -53,7 +54,7 @@ root.geometry('1920x1080')
 
 user_value = ''
 
-label = TK.Label(root)
+label = TK.Label(root) 
 label.pack()
 
 submitButton = TK.Button(root, text="Start", command=get_value)
@@ -69,7 +70,7 @@ horizontal.pack()
 horizontal.get()
 
 def myClick():
-    myLabel = TK.Label(root, text=myEntry())
+    myLabel = TK.Label(root)
     myLabel.pack()
 
 def mySlide():
